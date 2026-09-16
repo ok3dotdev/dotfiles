@@ -12,7 +12,6 @@ in
     # cli i use constantly
     ripgrep   # fast search
     fd        # fast find
-    fzf       # fuzzy finder
     jq        # json on the command line
     lazygit
     neovim
@@ -28,15 +27,50 @@ in
     syntaxHighlighting.enable = true;  # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
+
+      export PATH="$HOME/.local/bin:$PATH"
+
+      export NVM_DIR="$([ -z "''${XDG_CONFIG_HOME-}" ] && printf %s "$HOME/.nvm" || printf %s "''${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     '';
     shellAliases = {
       ".." = "cd ..";
+      cls = "clear";
       add = "git add .";
       push = "git push";
       pull = "git pull";
       m = "git switch main";
       cc = "claude --dangerously-skip-permissions";
       co = "codex --full-auto";
+
+      # carried over from Oh My Zsh's git plugin
+      ga = "git add";
+      gaa = "git add --all";
+      gst = "git status";
+      gb = "git branch";
+      gc = "git commit -v";
+      gcmsg = "git commit -m";
+      gco = "git checkout";
+      gcb = "git checkout -b";
+      gd = "git diff";
+      gp = "git push";
+      gl = "git pull";
+      glog = "git log --oneline --decorate --graph";
+      gss = "git status -s";
+      gsw = "git switch";
+    };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;  # Ctrl+R fuzzy history, Ctrl+T fuzzy file search
+  };
+
+  programs.git = {
+    enable = true;
+    settings.user = {
+      name = "Henry Oke";
+      email = "henryoke158@yahoo.com";
     };
   };
 
